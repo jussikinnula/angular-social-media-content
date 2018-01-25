@@ -21,9 +21,10 @@ const client = redis.createClient(REDIS_URL);
 
 // Development mode
 if (process.env.NODE_ENV === 'development') {
-  app.get('/facebook/auth', (req, res) => {
-    const access_token = Facebook.getAccessToken(req.query.token);
-    res.send({ access_token });
+  app.get('/facebook/auth', async (req, res) => {
+    const token = await Facebook.getAccessToken(req.query.token);
+    console.log(token);
+    res.send({ token });
   });
 
   app.get('/facebook', (req, res) => {

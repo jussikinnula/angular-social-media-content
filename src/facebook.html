@@ -36,8 +36,8 @@
           if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             try {
               const data = JSON.parse(xhr.responseText);
-              console.log('got long lived access token', data.access_token);
-              printAccessToken(data.access_token);
+              console.log('got long lived access token', data.token);
+              printAccessToken(data.token);
             } catch(error) {
               console.error('cannot get long lived access token', error);
             }

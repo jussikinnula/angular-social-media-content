@@ -62,7 +62,12 @@ export class Facebook {
     return new Promise((resolve, reject) => {
       const url = `${API_URL}/oauth/access_token?grant_type=fb_exchange_token&client_id=${FACEBOOK_APP_ID}&client_secret=${FACEBOOK_APP_SECRET}&fb_exchange_token=${token}`;
       request(url, (error: any, response: any, body: any) => {
-        resolve(body.access_token);
+        try {
+          const data = JSON.parse(body);
+          resolve(data.access_token);
+        } catch (error) {
+          reject(error);
+        }
       });
     });
   }

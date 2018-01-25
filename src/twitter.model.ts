@@ -56,8 +56,8 @@ export class Twitter {
           parseInt(status.id, 10),
           moment(status.created_at, 'dd MMM DD HH:mm:ss ZZ YYYY', 'en').toDate(),
           (status.entities && status.entities.media && status.entities.media[0]) ? status.entities.media[0].media_url.replace(/^http:/, '') : null,
-          status.text,
           'https://twitter.com/' + status.user.screen_name + '/status/' + status.id_str,
+          status.text,
           status.user ? ('https://twitter.com/' + status.user.screen_name) : null,
           status.user ? status.user.name : null,
           status.user ? status.user.screen_name : null
