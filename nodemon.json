@@ -3,7 +3,8 @@
   "watch": [
     "src/server.ts",
     "src/twitter.model.ts",
-    "src/facebook.model.ts"
+    "src/facebook.model.ts",
+    "src/item.model.ts"
   ],
   "ext": "ts",
   "env": {
