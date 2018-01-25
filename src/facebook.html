@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId: '<%= FACEBOOK_APP_ID %>',
+          cookie: true,
+          xfbml: true,
+          version: 'v2.11'
+        });
+          
+        FB.AppEvents.logPageView();   
+          
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "https://connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+
+      function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+          console.log('got short live access token', response.authResponse.accessToken);
+          getAccessToken(response.authResponse.accessToken);
+        });
+      }
+
+      function getAccessToken(token) {
+        var url = "/facebook/auth?token=" + token;
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            try {
+              const data = JSON.parse(xhr.responseText);
+              console.log('got long lived access token', data.access_token);
+              printAccessToken(data.access_token);
+            } catch(error) {
+              console.error('cannot get long lived access token', error);
+            }
+          }
+        };
+        xhr.send();
+      }
+
+      function printAccessToken(token) {
+        var input = document.createElement('input');
+        input.value = token;
+        document.body.appendChild(input);
+      }
+    </script>
+  </head>
+  <body>
+    <fb:login-button 
+      scope="public_profile,email"
+      onlogin="checkLoginState();">
+    </fb:login-button>
+  </body>
+</html>

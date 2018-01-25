@@ -1,0 +1,12 @@
+{
+  "verbose": true,
+  "watch": [
+    "src/server.ts",
+    "src/twitter.model.ts",
+    "src/facebook.model.ts"
+  ],
+  "ext": "ts",
+  "env": {
+    "NODE_ENV": "development"
+  }
+}
